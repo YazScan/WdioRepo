@@ -1,12 +1,14 @@
-
-describe('Carrito', () => {
-    it('Debería buscar iphone', async () => {
-      await browser.url('/');
-      let barraDeBusqueda = await $('[name="search"]');
-      await barraDeBusqueda.setValue('iphone');
-      await barraDeBusqueda.keys('Enter');
-      await browser.pause(5000);
-    });
+describe('Carrito', () => {  
+  
+  it('Debería buscar iphone', async ()=> {
+    await browser.url('/');
+    let barraDeBusqueda = await $('[name="search"]');
+    await barraDeBusqueda.setValue('iphone');
+    await assert.equal(await barraDeBusqueda.getValue(),'iphone','Error: no se mostró el texto esperado en la barra de búsqueda');
+    await barraDeBusqueda.keys('Enter');            
+    await assert.equal(await $('h4').getText(),'iPhone','Error: no se mostró el header esperado');
+   });
+  
 
     it('Debería buscar apple cinema, ingresar al artículo y seleccionar un color', async () => {
         await browser.url('/')
