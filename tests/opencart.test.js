@@ -1,12 +1,15 @@
+import homePage from '../pages/home.page';
+import busquedaPage from '../pages/busqueda.page';
+import { expect } from 'chai';
+
 describe('Carrito', () => {  
   
   it('Debería buscar iphone', async ()=> {
-    await browser.url('/');
-    let barraDeBusqueda = await $('input[name="search"]');
-    await barraDeBusqueda.setValue('iphone');
-    await expect(await barraDeBusqueda.getValue()).to.equal('iphone','Error: no se mostró el texto esperado en la barra de búsqueda');
-    await barraDeBusqueda.keys('Enter');
-    await expect(await $('h4').getText()).to.include.string('iPhone','Error: no se mostró el header esperado');
+    await homePage.abrir('/');
+    let articulo = 'iPhone';
+    await homePage.buscar(articulo);
+    await expect(await homePage.obtenerTextoBusqueda()).to.equal(articulo);
+    await expect(await busquedaPage.obtenerNombreResultado()).to.equal(articulo);
  });
   
 
